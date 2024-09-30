@@ -1,0 +1,190 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateHistoryDto {
+  projectId: String!
+  state: String!
+}
+
+input CreateMaterialsDto {
+  created_by_id: String!
+  description: String!
+  materialName: String!
+  materialState: String!
+  price: Float!
+  projectId: String!
+}
+
+input CreateProjectDto {
+  city: String!
+  codePostal: Float!
+  endDate: DateTime!
+  estimatedEndDate: DateTime!
+  estimatedstartDate: DateTime!
+  projectAdress: String!
+  projectName: String!
+  reference: String!
+  startDate: DateTime!
+}
+
+input CreateTaskDto {
+  description: String!
+  projectId: String!
+  resetProject: Boolean!
+  taskName: String!
+  taskPhase: String!
+}
+
+input CreateUserDto {
+  adresse: String!
+  email: String!
+  firstname: String!
+  image: String!
+  lastname: String!
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type History {
+  projectId: String!
+  state: String!
+}
+
+type Materials {
+  created_by_id: String!
+  description: String!
+  materialName: String!
+  price: Float!
+  projectId: String!
+}
+
+type Mutation {
+  assignUserToProject(projectId: [String!]!, userId: String!): Boolean!
+  createHistory(values: CreateHistoryDto!): History!
+  createMaterial(values: CreateMaterialsDto!): Materials!
+  create_project(values: CreateProjectDto!): Projects!
+  create_task(values: CreateTaskDto!): Tasks!
+  create_user(values: CreateUserDto!): User!
+  deleteHistory(id: String!): Boolean!
+  deleteMaterial(id: String!): Boolean!
+  deleteUser(id: String!): User!
+  delete_task(id: String!): Boolean!
+  signin(values: SigninDto!): SignInResult!
+  updateHistory(id: String!): History!
+  updateMaterial(id: String!, values: UpdateMaterialsDto!): Materials!
+  updateTaskState(id: String!, taskState: Boolean!): Tasks!
+  update_project(id: String!, values: UpdateProjectDto!): Projects!
+  update_task(id: String!, values: UpdateTaskDto!): Tasks
+  update_user(id: String!, values: UpdateUserDto!): User!
+}
+
+enum ProjectState {
+  demolition
+  finishing
+  handover
+  planning
+  qualityControl
+  renovation
+}
+
+type Projects {
+  city: String!
+  codePostal: Float!
+  endDate: DateTime!
+  estimatedEndDate: DateTime!
+  estimatedstartDate: DateTime!
+  projectAdress: String!
+  projectName: String!
+  reference: String!
+  startDate: DateTime!
+}
+
+type Query {
+  getProjectId(id: String!): Projects!
+  getProjects: [Projects!]!
+  histories: [History!]!
+  historyById(id: String!): History!
+  material(id: String!): Materials!
+  materialsByUser(userId: String!): [Materials!]!
+  task_id(id: String!): Tasks!
+  tasks: [Tasks!]!
+  userId(id: String!): User!
+  users: [User!]!
+}
+
+type SignInResult {
+  access_token: String!
+}
+
+input SigninDto {
+  password: String!
+  username: String!
+}
+
+type Tasks {
+  description: String!
+  projectId: String!
+  resetProject: Boolean!
+  taskName: String!
+  taskPhase: ProjectState!
+  taskPhaseIndex: Int!
+  taskState: Boolean!
+}
+
+input UpdateMaterialsDto {
+  created_by_id: String!
+  description: String!
+  materialName: String!
+  materialState: String!
+  price: Float!
+  projectId: String!
+}
+
+input UpdateProjectDto {
+  city: String!
+  codePostal: Float!
+  endDate: DateTime!
+  estimatedEndDate: DateTime!
+  estimatedstartDate: DateTime!
+  projectAdress: String!
+  projectName: String!
+  reference: String!
+  startDate: DateTime!
+}
+
+input UpdateTaskDto {
+  description: String!
+  projectId: String!
+  resetProject: Boolean!
+  taskName: String!
+  taskPhase: String!
+}
+
+input UpdateUserDto {
+  adresse: String!
+  email: String!
+  firstname: String!
+  image: String!
+  lastname: String!
+  password: String!
+  username: String!
+}
+
+type User {
+  email: String!
+  firstname: String!
+  lastname: String!
+  role: UserRole!
+  username: String!
+}
+
+enum UserRole {
+  admin
+  diagnostician
+}

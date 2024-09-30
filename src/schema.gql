@@ -1,0 +1,278 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  id: String!
+  name: String!
+  parent: Category
+  parent_id: String
+}
+
+input CreateHistoryDto {
+  projectId: String!
+  state: String!
+}
+
+input CreateMaterialsDto {
+  categoryId: String!
+  description: String!
+  materialName: String!
+  materialState: MaterialState!
+  price: Float!
+  projectId: String!
+  quantity: Float!
+}
+
+input CreateNotificationtDto {
+  content: String!
+  subTitle: String!
+  title: String!
+}
+
+input CreateProjectDto {
+  city: String!
+  codePostal: Float!
+  endDate: DateTime!
+  estimatedEndDate: DateTime!
+  estimatedstartDate: DateTime!
+  projectAdress: String!
+  projectName: String!
+  reference: String!
+  startDate: DateTime!
+}
+
+input CreateTaskDto {
+  description: String!
+  projectId: String!
+  resetProject: Boolean!
+  taskName: String!
+  taskPhase: String!
+}
+
+input CreateUserDto {
+  adresse: String!
+  email: String!
+  firstname: String!
+  image: String!
+  lastname: String!
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type History {
+  createdAt: DateTime!
+  id: String!
+  projectId: String!
+  state: String!
+}
+
+type Images {
+  id: String!
+  imagePath: String!
+  materialtId: String!
+}
+
+enum MaterialState {
+  new
+  old
+  used
+}
+
+type Materials {
+  category: Category!
+  categoryId: String!
+  createdAt: DateTime!
+  created_by_id: String!
+  description: String!
+  id: String!
+  images: [Images!]!
+  materialName: String!
+  materialState: String!
+  price: Float!
+  projectId: String!
+  quantity: Float!
+}
+
+type Mutation {
+  addDeviceToken(deviceToken: String!): User!
+  assignUserToProject(projectId: [String!]!, userId: String!): Boolean!
+  createCategory(name: String!, parentId: String): Category!
+  createHistory(values: CreateHistoryDto!): History!
+  createMaterial(values: CreateMaterialsDto!): Materials!
+  createNotification(values: CreateNotificationtDto!): Notifications!
+  create_project(values: CreateProjectDto!): Projects!
+  create_task(values: CreateTaskDto!): Tasks!
+  create_user(values: CreateUserDto!): User!
+  deleteCategory(id: String!): Boolean!
+  deleteHistory(id: String!): Boolean!
+  deleteMaterial(id: String!): Boolean!
+  deleteNotification(id: String!): Boolean!
+  deleteUser(id: String!): User!
+  delete_task(id: String!): Boolean!
+  exportMaterialsToExcel(projectId: String!): Boolean!
+  signin(values: SigninDto!): SignInResult!
+  updateCategory(id: String!, name: String!): Category
+  updateMaterial(id: String!, values: UpdateMaterialsDto!): Materials!
+  updateNotification(id: String!, values: UpdateNotificationtDto!): Notifications!
+  updatePassword(values: UpdateUserPasswordDto!): User!
+  updateTaskState(id: String!, taskState: Boolean!): Tasks!
+  update_diagnostician(id: String!, values: UpdateUserDto!): User!
+  update_project(id: String!, values: UpdateProjectDto!): Projects!
+  update_task(id: String!, values: UpdateTaskDto!): Tasks
+  update_user(values: UpdateUserDto!): User!
+  uploadFile(values: UploadMaterialImageDTO!): Images!
+  uploadUserImage(values: Upload!): Boolean!
+}
+
+type Notifications {
+  content: String!
+  createdAt: DateTime!
+  subTitle: String!
+  title: String!
+}
+
+enum ProjectState {
+  demolition
+  finishing
+  handover
+  planning
+  qualityControl
+  renovation
+}
+
+type Projects {
+  city: String!
+  codePostal: Float!
+  endDate: DateTime!
+  estimatedEndDate: DateTime!
+  estimatedstartDate: DateTime!
+  id: String!
+  projectAdress: String!
+  projectName: String!
+  reference: String!
+  startDate: DateTime!
+}
+
+type Query {
+  CurrentuserId: User!
+  category(id: String!): Category
+  filterMaterials(projectId: String!): [Materials!]!
+  filterProjects: [Projects!]!
+  filterTasks(projectId: String!): [Tasks!]!
+  findAllHistoryForProjectById(projectId: String!): [History!]!
+  getAllCategories: [Category]!
+  getProjectId(id: String!): Materials!
+  getProjects: [Projects!]!
+  histories: [History!]!
+  historyById(id: String!): History!
+  material(id: String!): Materials!
+  materialsByUser(userId: String!): [Materials!]!
+  notifications: [Notifications!]!
+  stateByProjectId(id: String!): ProjectState
+  task_id(id: String!): Tasks!
+  tasks: [Tasks!]!
+  userId(userId: String!): User!
+  userImage: String
+  users: [User!]!
+}
+
+type SignInResult {
+  access_token: String!
+  image: String!
+  username: String!
+}
+
+input SigninDto {
+  password: String!
+  username: String!
+}
+
+type Tasks {
+  description: String!
+  id: String!
+  projectId: String!
+  taskName: String!
+  taskPhase: ProjectState!
+  taskState: Boolean!
+}
+
+input UpdateMaterialsDto {
+  categoryId: String
+  description: String!
+  materialName: String!
+  materialState: String!
+  price: Float!
+  quantity: Float!
+}
+
+input UpdateNotificationtDto {
+  content: String!
+  subTitle: String!
+  title: String!
+}
+
+input UpdateProjectDto {
+  city: String!
+  codePostal: Float!
+  endDate: DateTime!
+  estimatedEndDate: DateTime!
+  estimatedstartDate: DateTime!
+  projectAdress: String!
+  projectName: String!
+  reference: String!
+  startDate: DateTime!
+}
+
+input UpdateTaskDto {
+  description: String!
+  projectId: String!
+  resetProject: Boolean!
+  taskName: String!
+  taskPhase: String!
+}
+
+input UpdateUserDto {
+  adresse: String!
+  email: String!
+  firstname: String!
+  lastname: String!
+  username: String!
+}
+
+input UpdateUserPasswordDto {
+  confirmPassword: String!
+  oldPassword: String!
+  password: String!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input UploadMaterialImageDTO {
+  image: Upload!
+  materialId: String!
+}
+
+type User {
+  adresse: String!
+  deviceToken: String!
+  email: String!
+  firstname: String!
+  id: String!
+  image: String!
+  lastname: String!
+  password: String!
+  role: UserRole!
+  username: String!
+}
+
+enum UserRole {
+  admin
+  diagnostician
+}
